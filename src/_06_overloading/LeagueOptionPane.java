@@ -1,10 +1,12 @@
 package _06_overloading;
 
+import java.awt.Color;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /*
@@ -15,51 +17,83 @@ import javax.swing.JPanel;
  * GOAL: Create your own custom pop-up messages
  */
 public class LeagueOptionPane {
-	
+
 	public static void showMessageDialog(String message) {
 		// 1. Open example.png and make a GUI that looks like that
 		//    The message parameter is what we want to show on our pop-up
 		JFrame frame = new JFrame();
 		JPanel panel = new JPanel();
+		JLabel label = new JLabel(message);
+		JLabel iLabel = new JLabel(loadImage("league.png"));
 		frame.add(panel);
+		panel.add(iLabel);
+		panel.add(label);
 		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		// 2. Uncomment the line of code below. It sets the location of our frame to the center of the screen
-		//frame.setLocationRelativeTo(null);
+		frame.setLocationRelativeTo(null);
 	}
-	
+
 	// 3. Call this method in the Runner class
-	
+
 
 	// 4. Create another showMessageDialog() method that lets us also choose the Message and Title 
 	//    2 String parameters (one for the message and one for the title)
-	
+	public static void showMessageDialog(String message, String title) {
+		JFrame frame = new JFrame();
+		JPanel panel = new JPanel();
+		JLabel label = new JLabel(message);
+		JLabel iLabel = new JLabel(loadImage("league.png"));
+		frame.setTitle(title);
+		frame.add(panel);
+		panel.add(iLabel);
+		panel.add(label);
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+	}
 	// 5. Call this method in the Runner class
-	
-	
+
+
 	// 6. Create another showMessageDialog() method that lets us choose the Message, Title, and Image
 	//    3 String parameters (one for the message, one for the title, and one for the fileName)
-	
+	public static JPanel showMessageDialog(String message, String title, String image) {
+		JFrame frame = new JFrame();
+		JPanel panel = new JPanel();
+		JLabel label = new JLabel(message);
+		JLabel iLabel = new JLabel(loadImage(image));
+		frame.setTitle(title);
+		frame.add(panel);
+		panel.add(iLabel);
+		panel.add(label);
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+		return panel;
+	}
 	// 7. Call this method in the Runner class
-	
+
 	// CHALLENGE: 
-		//	1. Create another showMessageDialog() method that lets us choose the Message, Title, Image, and Background Color
-		//     3 String parameters (one for the message, one for the title, and one for the fileName)
-		//	   1 Color parameter for the backgroundColor
-		//			
+	//	1. Create another showMessageDialog() method that lets us choose the Message, Title, Image, and Background Color
+	//     3 String parameters (one for the message, one for the title, and one for the fileName)
+	//	   1 Color parameter for the backgroundColor
+	public static void showMessageDialog(String message, String title, String image, Color color) {
 		//	2. Change the return type of the 3rd showMessageDialog() method(the one right above) to JPanel
 		//	   Make sure to return your panel at the end of that method
 		//	
 		//	3. Call the showMessageDialog() method you just modified in this method
 		//	   Set the method equal to a JPanel
-		//	
+		JPanel panel = LeagueOptionPane.showMessageDialog(message, title, image);
 		//	4. Set the background of your panel to the backgroundColor parameter
-		//
+		panel.setBackground(color);
 		//	5. Call this method in the Runner class
-		//
+
 		// WHY DID WE DO THIS? - because we were able to overload this method by calling one of the other methods inside of it
-	
-	
+
+	}
 	public static ImageIcon loadImage(String fileName) {
 		try {
 			return new ImageIcon(ImageIO.read(new LeagueOptionPane().getClass().getResourceAsStream(fileName)));
@@ -68,5 +102,5 @@ public class LeagueOptionPane {
 			return null;
 		}
 	}
-	
+
 }

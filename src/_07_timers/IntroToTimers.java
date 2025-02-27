@@ -26,9 +26,9 @@ public class IntroToTimers extends JPanel implements ActionListener, KeyListener
 	int time;
 	int maxTime = 45;
 	int speed = 30;
-	
-	// 1. Declare a Timer variable, but do not initialize it.
 
+	// 1. Declare a Timer variable, but do not initialize it.
+	Timer timer;
 
 	public static void main(String[] args) {
 		IntroToTimers tg = new IntroToTimers();
@@ -37,19 +37,20 @@ public class IntroToTimers extends JPanel implements ActionListener, KeyListener
 
 	private void setup() {
 		frame.add(this);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setPreferredSize(new Dimension (WIDTH,HEIGHT));
 		frame.pack();
 		frame.addKeyListener(this);
-		
+
 		// 2. Set the time variable to maxTime
-
+		time = maxTime;
 		// 3. Initialize timer to a new Timer object. For the first argument, use 1000/speed. For the second argument, use this
-
+		timer = new Timer(1000/speed, this);
 		// 11. Run it! Notice how it doesn't update? That's because our timer isn't triggering the actionPerformed() method yet!
 		// 12. Make the timer start!
-
+timer.start();
 		// 13. Run the program. Is it possible for you to win? 
 		// 14. Figure out how to make it harder or easier! (Which condition is most related to whether you win or not?)
 	}
@@ -57,30 +58,40 @@ public class IntroToTimers extends JPanel implements ActionListener, KeyListener
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// 8. Decrement time
-
+		time-=1;
 		// 9. if time is less than or equal to 2...
+		if (time <= 0) {
+
 
 			// 10. Set time equal to maxTime
-
-		
+			time = maxTime;
+		}
 		repaint();
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
-		
+
 		// 4. if keyCode is 32 (that's the spacebar key!)...
+		if (keyCode == 32) {
+
 
 
 			// 5. if time is less than 2...
+			if (time < 2) {
+
 
 				// 6. Tell them they win!
+				timer.stop();
+				JOptionPane.showMessageDialog(null, "You Win!");
+			}
 
-			
 			// 7. Otherwise, set time equal to maxTime
-
-		
+			else {
+				time = maxTime;
+			}
+		}
 	}
 
 	@Override
@@ -91,7 +102,7 @@ public class IntroToTimers extends JPanel implements ActionListener, KeyListener
 		g.setFont(font);
 		g.drawString(time+"", WIDTH/2-50, HEIGHT/2);
 	}
-	
+
 	@Override
 	public void keyReleased(KeyEvent e) {
 	}
