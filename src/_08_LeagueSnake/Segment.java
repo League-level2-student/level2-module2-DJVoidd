@@ -11,7 +11,7 @@ package _08_LeagueSnake;
 public class Segment {
   int x = 100;
   int y = 100;
-  public void SnakeSegment(int x, int y) {
+  public Segment(int x, int y) {
 	  this.x = x;
 	  this.y = y;
   }
